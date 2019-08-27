@@ -23,9 +23,6 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import java.util.ArrayList;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-
 public class GalleryActivity extends AppCompatActivity {
     public static final String TAG = "GalleryActivity";
     public static final String EXTRA_NAME = "images";
@@ -33,15 +30,18 @@ public class GalleryActivity extends AppCompatActivity {
     private ArrayList<String> _images;
     private GalleryPagerAdapter _adapter;
 
-    @InjectView(R.id.pager) ViewPager _pager;
-    @InjectView(R.id.thumbnails) LinearLayout _thumbnails;
-    @InjectView(R.id.btn_close) ImageButton _closeButton;
+    ViewPager _pager;
+    LinearLayout _thumbnails;
+    ImageButton _closeButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
-        ButterKnife.inject(this);
+//        ButterKnife.inject(this);
+        _pager = findViewById(R.id.pager);
+        _thumbnails = findViewById(R.id.thumbnails);
+        _closeButton = findViewById(R.id.btn_close);
 
         _images = (ArrayList<String>) getIntent().getSerializableExtra(EXTRA_NAME);
         if(_images==null) throw new NullPointerException("Guard block");

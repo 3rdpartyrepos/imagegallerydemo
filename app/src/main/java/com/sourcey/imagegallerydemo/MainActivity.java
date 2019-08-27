@@ -1,17 +1,15 @@
 package com.sourcey.imagegallerydemo;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -21,24 +19,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button galleryButton = (Button) findViewById(R.id.btn_gallery);
-        galleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startGalleryActivity();
-            }
-        });
-
+        final Button galleryButton = findViewById(R.id.btn_gallery);
+        galleryButton.setOnClickListener(v -> startGalleryActivity());
         startGalleryActivity();
     }
 
     public void startGalleryActivity() {
-        ArrayList<String> images = new ArrayList<String>();
-        images.add("http://sourcey.com/images/stock/salvador-dali-metamorphosis-of-narcissus.jpg");
-        images.add("http://sourcey.com/images/stock/salvador-dali-the-dream.jpg");
-        images.add("http://sourcey.com/images/stock/salvador-dali-persistence-of-memory.jpg");
-        images.add("http://sourcey.com/images/stock/simpsons-persistence-of-memory.jpg");
-        images.add("http://sourcey.com/images/stock/salvador-dali-the-great-masturbator.jpg");
+        ArrayList<String> images = new ArrayList<>(Arrays.asList(
+                "https://i.ibb.co/74VcyM3/00mainview.jpg",
+                "https://i.ibb.co/HG8Fz6r/00mainviewgrid.jpg",
+                "https://i.ibb.co/tDDGPZH/001quicksearch.jpg",
+                "https://i.ibb.co/nDDWbKL/002xreserver.jpg",
+                "https://i.ibb.co/58qddy6/003advancedsort.jpg",
+                "https://i.ibb.co/wJDhJzj/004compress.jpg",
+                "https://i.ibb.co/566G6H4/005compressbrowse.jpg",
+                "https://i.ibb.co/sHYmZjx/006contsel.jpg",
+                "https://i.ibb.co/XjFMPtv/007contselgrid.jpg",
+                "https://i.ibb.co/6RX3Zvq/008advancedsearch.jpg",
+                "https://i.ibb.co/JHLMnKS/009checksum.jpg",
+                "https://i.ibb.co/7YrwsnB/010godir.jpg"
+        ));
         Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
         intent.putStringArrayListExtra(GalleryActivity.EXTRA_NAME, images);
         startActivity(intent);

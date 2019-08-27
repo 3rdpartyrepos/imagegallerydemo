@@ -21,8 +21,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
-import junit.framework.Assert;
-
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
@@ -46,18 +44,15 @@ public class GalleryActivity extends AppCompatActivity {
         ButterKnife.inject(this);
 
         _images = (ArrayList<String>) getIntent().getSerializableExtra(EXTRA_NAME);
-        Assert.assertNotNull(_images);
+        if(_images==null) throw new NullPointerException("Guard block");
 
         _adapter = new GalleryPagerAdapter(this);
         _pager.setAdapter(_adapter);
         _pager.setOffscreenPageLimit(6); // how many images to load into memory
 
-        _closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Close clicked");
-                finish();
-            }
+        _closeButton.setOnClickListener(v -> {
+            Log.d(TAG, "Close clicked");
+            finish();
         });
     }
 
@@ -78,7 +73,7 @@ public class GalleryActivity extends AppCompatActivity {
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return view == ((LinearLayout) object);
+            return view == object;
         }
 
         @Override
@@ -105,19 +100,15 @@ public class GalleryActivity extends AppCompatActivity {
             final ImageView thumbView = new ImageView(_context);
             thumbView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             thumbView.setLayoutParams(params);
-            thumbView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d(TAG, "Thumbnail clicked");
-
-                    // Set the pager position when thumbnail clicked
-                    _pager.setCurrentItem(position);
-                }
+            thumbView.setOnClickListener(v -> {
+                Log.d(TAG, "Thumbnail clicked");
+                // Set the pager position when thumbnail clicked
+                _pager.setCurrentItem(position);
             });
             _thumbnails.addView(thumbView);
 
             final SubsamplingScaleImageView imageView =
-                    (SubsamplingScaleImageView) itemView.findViewById(R.id.image);
+                    itemView.findViewById(R.id.image);
 
             // Asynchronously load the image and set the thumbnail and pager view
             Glide.with(_context)

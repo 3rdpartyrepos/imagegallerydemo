@@ -1,10 +1,11 @@
 package com.sourcey.imagegallerydemo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +24,7 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import java.util.ArrayList;
 
-public class GalleryActivity extends AppCompatActivity {
+public class GalleryActivity extends Activity {
     public static final String TAG = "GalleryActivity";
     public static final String EXTRA_NAME = "images";
 
@@ -71,12 +72,13 @@ public class GalleryActivity extends AppCompatActivity {
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object object) {
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
             return view == object;
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, final int position) {
+        @NonNull
+        public Object instantiateItem(@NonNull ViewGroup container, final int position) {
             View itemView = _inflater.inflate(R.layout.pager_gallery_item, container, false);
             container.addView(itemView);
 
@@ -125,7 +127,7 @@ public class GalleryActivity extends AppCompatActivity {
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public void destroyItem(ViewGroup container, int position, @NonNull Object object) {
             container.removeView((LinearLayout) object);
         }
     }

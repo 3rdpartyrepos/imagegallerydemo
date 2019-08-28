@@ -38,7 +38,6 @@ public class GalleryActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
-//        ButterKnife.inject(this);
         _pager = findViewById(R.id.pager);
         _thumbnails = findViewById(R.id.thumbnails);
         _closeButton = findViewById(R.id.btn_close);
